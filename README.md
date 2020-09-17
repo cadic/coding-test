@@ -26,9 +26,9 @@ Right now some of the functionality is missing and we need your help! Below are 
 ## 🎹 Development
 👷 Everything should be already be set up for you! We're experimenting with a zero-setup cloud based editing environment using VSCode, to avoid lengthy setup issues and to get you started straight away. We recommend using Chrome-based browsers, as Microsoft are still working out some kinks in other browsers.
 
-* Visit [https://{{USERNAME}}.vscode.{{DOMAIN}}](https://{{USERNAME}}.vscode.{{DOMAIN}}) to access our cloud-based editor, use the password `{{PASSWORD}}` to login, then wait until this `README.md` loads before you get started!
-* Your WordPress development site is available at [https://{{USERNAME}}.wp.{{DOMAIN}}](https://{{USERNAME}}.wp.{{DOMAIN}}). Use `{{USERNAME}}` as the username, and `{{PASSWORD}}` as the password.
-* Here's a link to the plugin page for your convenience: [https://{{USERNAME}}.wp.{{DOMAIN}}/wp-admin/admin.php?page=rusty-inc-org-chart](https://{{USERNAME}}.wp.{{DOMAIN}}/wp-admin/admin.php?page=rusty-inc-org-chart)
+* Visit [https://afa4ca2a8fdf.vscode.devex.live](https://afa4ca2a8fdf.vscode.devex.live) to access our cloud-based editor, use the password `27d33fde8974645610ef0d48832029aa` to login, then wait until this `README.md` loads before you get started!
+* Your WordPress development site is available at [https://afa4ca2a8fdf.wp.devex.live](https://afa4ca2a8fdf.wp.devex.live). Use `afa4ca2a8fdf` as the username, and `27d33fde8974645610ef0d48832029aa` as the password.
+* Here's a link to the plugin page for your convenience: [https://afa4ca2a8fdf.wp.devex.live/wp-admin/admin.php?page=rusty-inc-org-chart](https://afa4ca2a8fdf.wp.devex.live/wp-admin/admin.php?page=rusty-inc-org-chart)
 * You have access to a `bash` terminal within VSCode, via the hamburger menu's Terminal item.
 * You will need to use `git` for source control, please ensure you're familiar [with the basics](https://guides.github.com/introduction/git-handbook/) before starting out. 
 * When `git push`ing via the terminal, you'll need to enter a Personal Access Token as your password for GitHub. Please create one here, and keep it safe: [https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line](https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line)
@@ -37,7 +37,7 @@ Right now some of the functionality is missing and we need your help! Below are 
 * Simply click the debugging icon on the VSCode sidebar, and you can start XDebug by clicking "Play" for the "Listen for XDebug" configuration. You will be able to add breakpoints on specific lines in the editor, and view the callstack etc.
 
 ### ⏱ Profiling PHP with XDebug
-* Append `XDEBUG_PROFILE` param to either GET or POST parameters. The profiler will write to the `.cachegrind` folder, and you should download the files it outputs locally, using `kcachegrind`, or`qcachegrind` etc to open them. The URL will be `https://{{USERNAME}}.wp.{{DOMAIN}}/wp-content/plugins/rusty-inc-org-chart/.cachegrind/<file>`
+* Append `XDEBUG_PROFILE` param to either GET or POST parameters. The profiler will write to the `.cachegrind` folder, and you should download the files it outputs locally, using `kcachegrind`, or`qcachegrind` etc to open them. The URL will be `https://afa4ca2a8fdf.wp.devex.live/wp-content/plugins/rusty-inc-org-chart/.cachegrind/<file>`
 
 ### 👉 Process
 
@@ -48,7 +48,7 @@ Right now some of the functionality is missing and we need your help! Below are 
 ### 💉 Running tests:
 
 * For the PHP tests,  run `phpunit` from your terminal in VSCode.
-* For the JavaScript tests, visit [https://{{USERNAME}}.wp.{{DOMAIN}}/wp-content/plugins/rusty-inc-org-chart/tests/test.html](https://{{USERNAME}}.wp.{{DOMAIN}}/wp-content/plugins/rusty-inc-org-chart/tests/test.html)
+* For the JavaScript tests, visit [https://afa4ca2a8fdf.wp.devex.live/wp-content/plugins/rusty-inc-org-chart/tests/test.html](https://afa4ca2a8fdf.wp.devex.live/wp-content/plugins/rusty-inc-org-chart/tests/test.html)
 
 ### 💡 Helpful tips:
 
