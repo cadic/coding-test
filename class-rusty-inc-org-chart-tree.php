@@ -7,10 +7,35 @@ class Rusty_Inc_Org_Chart_Tree {
 	private $list_of_teams;
 
 	/**
+	 * An index for children quick serch:
+	 *
+	 * $parent_id => array( $teams )
+	 *
+	 * @var array
+	 */
+	private $children = array();
+
+	/**
 	 * @param array $list_of_teams an array of teams, where each team is an associative array with at least an `id` and `parent_id` keys
 	 */
 	public function __construct( $list_of_teams ) {
 		$this->list_of_teams = $list_of_teams;
+
+		// Build the library of parent_id => teams.
+		foreach ( $list_of_teams as $team ) {
+			// Skip the head.
+			if ( is_null( $team['parent_id'] ) ) {
+				continue;
+			}
+
+			if ( isset( $this->children[ $team['parent_id'] ] ) ) {
+				// Add team to existing parent.
+				$this->children[ $team['parent_id'] ][] = $team;
+			} else {
+				// Initialize new parent if not exists.
+				$this->children[ $team['parent_id'] ] = array( $team );
+			}
+		}
 	}
 
 	/**
@@ -72,12 +97,13 @@ class Rusty_Inc_Org_Chart_Tree {
 	}
 
 	private function get_children( $parent ) {
-		return array_values( array_filter(
-			$this->list_of_teams,
-			function( $team ) use ( $parent ) {
-				return $team['parent_id'] === $parent['id'];
-			}
-		) );
+		$children = array();
+
+		// Look up in the index for children of this parent.
+		if ( isset( $this->children[ $parent['id'] ] ) ) {
+			$children = $this->children[ $parent['id'] ];
+		}
+		return $children;
 	}
 
 	private function emoji_to_js( $emoji ) {
