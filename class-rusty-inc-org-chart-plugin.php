@@ -53,6 +53,8 @@ class Rusty_Inc_Org_Chart_Plugin {
 			add_action( "admin_footer-{$page_hook_suffix}", [ $this, 'scripts_in_footer' ] );
 		} );
 
+		$this->maybe_save_tree();
+
 		/**
 		 * Handles routing for the publicly shared page -- only triggered when
 		 * we have the right arguments in the URL
@@ -87,5 +89,19 @@ class Rusty_Inc_Org_Chart_Plugin {
 	 */
 	public function org_chart_controller() {
 		require __DIR__ . '/admin-page-template.php';
+	}
+
+	/**
+	 * Save tree and sharing settings
+	 *
+	 * @return void
+	 */
+	public function maybe_save_tree() {
+		// Quick dumb solution. Needs to be more secure with nonce verification.
+		if ( ! empty( $_POST['tree'] ) ) {
+			$tree = new Rusty_Inc_Org_Chart_Tree( array() );
+			$tree->update_from_json( stripslashes( $_POST['tree'] ) );
+			update_option( self::OPTION_NAME, $tree->get_list_of_teams() );
+		}
 	}
 }
