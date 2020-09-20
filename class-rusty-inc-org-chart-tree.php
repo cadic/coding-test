@@ -65,6 +65,11 @@ class Rusty_Inc_Org_Chart_Tree {
 
 	public function get_nested_tree_js( $root = null ) {
 		$root = $this->get_nested_tree( $root );
+		// TODO Why don't just change to PHP builtin json_encode 🤔?
+		return $this->custom_json_encode( $root );
+	}
+
+	public function custom_json_encode( $root ) {
 		if ( is_null( $root ) ) {
 			return 'null';
 		}
@@ -72,7 +77,7 @@ class Rusty_Inc_Org_Chart_Tree {
 		foreach( $root as $key => $value ) {
 			$js .= '"' . $key . '":';
 			if ( $key === 'children' ) {
-				$js .= '[' . implode( ', ', array_map( [ $this, 'get_nested_tree_js' ], $value ) ) . ']';
+				$js .= '[' . implode( ', ', array_map( [ $this, 'custom_json_encode' ], $value ) ) . ']';
 			} else if ( is_numeric( $value ) ) {
 				$js .= $value . ',';
 			} else if ( 'emoji' === $key ) {
