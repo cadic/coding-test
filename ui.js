@@ -9,8 +9,7 @@ export function ui( tree, url, expanded, element ) {
 			domSecretURL( url ),
 			dom( 'button', { 'style': 'margin-top: 24px;', 'click': save },
 				text( '✅ Save' )
-			),
-			text( '(not yet implemented)' )
+			)
 		),
 		element
 	);
