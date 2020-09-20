@@ -29,6 +29,12 @@ class Rusty_Inc_Org_Chart_Tree_Test extends WP_UnitTestCase {
 			] ],
 	    ] ];
 		$this->assertEquals( $expected, ( new Rusty_Inc_Org_Chart_Tree( $list_of_teams ) )->get_nested_tree() );
+
+		$json = ( new Rusty_Inc_Org_Chart_Tree( $list_of_teams ) )->get_nested_tree_js();
+		$reversed_tree = new Rusty_Inc_Org_Chart_Tree( [] );
+		$reversed_tree->update_from_json( $json );
+
+		$this->assertEqualSets( $list_of_teams, $reversed_tree->get_list_of_teams(), 'update_from_json Failed' );
 	}
 
 	/**
@@ -61,5 +67,4 @@ class Rusty_Inc_Org_Chart_Tree_Test extends WP_UnitTestCase {
 		$less_than_five_seconds = ( $end_time - $start_time ) < 5;
 		$this->assertTrue( $less_than_five_seconds );
 	}
-
 }
