@@ -70,6 +70,38 @@ class Rusty_Inc_Org_Chart_Tree {
 		return $root;
 	}
 
+	/**
+	 * Recursively convert nested tree to plain teams list
+	 *
+	 * @param array $root Tree root.
+	 * @return array
+	 */
+	public function get_plain_list( $root = null ) {
+		$list_of_teams = array();
+
+		if ( ! is_null( $root ) ) {
+			// Pick the root element.
+			$team = $root;
+
+			// Process children.
+			if ( isset( $team['children'] ) && is_array( $team['children'] ) ) {
+
+				foreach ( $team['children'] as $child_team ) {
+
+					// Recursively get plain list for child.
+					$child_teams = $this->get_plain_list( $child_team );
+					$list_of_teams = array_merge( $list_of_teams, $child_teams );
+				}
+
+				unset( $team['children'] );
+			}
+
+			$list_of_teams[] = $team;
+		}
+
+		return $list_of_teams;
+	}
+
 	public function get_nested_tree_js( $root = null ) {
 		$root = $this->get_nested_tree( $root );
 		if ( is_null( $root ) ) {
