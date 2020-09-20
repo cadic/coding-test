@@ -20,9 +20,12 @@ class Rusty_Inc_Org_Chart_Tree {
 	 */
 	public function __construct( $list_of_teams ) {
 		$this->list_of_teams = $list_of_teams;
+		$this->rebuild_children_index();
+	}
 
+	public function rebuild_children_index() {
 		// Build the library of parent_id => teams.
-		foreach ( $list_of_teams as $team ) {
+		foreach ( $this->list_of_teams as $team ) {
 			// Skip the head.
 			if ( is_null( $team['parent_id'] ) ) {
 				continue;
