@@ -41,6 +41,10 @@ class Rusty_Inc_Org_Chart_Tree {
 		}
 	}
 
+	public function get_list_of_teams() {
+		return $this->list_of_teams;
+	}
+
 	/**
 	 * Converts the internal representation to a nested representation, for which:
 	 * - each node is an associative array with at least the following keys:
