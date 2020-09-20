@@ -5,6 +5,10 @@ class Rusty_Inc_Org_Chart_Tree_Test extends WP_UnitTestCase {
 
 	public function test_empty_list_returns_null() {
 		$this->assertEquals( null, ( new Rusty_Inc_Org_Chart_Tree( [] ) )->get_nested_tree() );
+
+		$reversed_tree = new Rusty_Inc_Org_Chart_Tree( [] );
+		$reversed_tree->update_from_json( 'null' );
+		$this->assertEquals( array(), $reversed_tree->get_list_of_teams(), 'update_from_json failed for null' );
 	}
 
 	public function test_only_root_returns_single_node() {
