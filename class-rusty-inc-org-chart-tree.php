@@ -71,6 +71,20 @@ class Rusty_Inc_Org_Chart_Tree {
 	}
 
 	/**
+	 * Updates list_of_teams from nested tree in JSON format
+	 *
+	 * @param string $json_string JSON tree representation.
+	 * @return void
+	 */
+	public function update_from_json( $json_string = 'null' ) {
+		// Decode string to assoc array.
+		$nested_tree = json_decode( $json_string, true );
+		$list_of_teams = $this->get_plain_list( $nested_tree );
+		$this->list_of_teams = $list_of_teams;
+		$this->rebuild_children_index();
+	}
+
+	/**
 	 * Recursively convert nested tree to plain teams list
 	 *
 	 * @param array $root Tree root.
