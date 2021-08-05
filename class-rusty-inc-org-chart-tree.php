@@ -20,9 +20,12 @@ class Rusty_Inc_Org_Chart_Tree {
 	 */
 	public function __construct( $list_of_teams ) {
 		$this->list_of_teams = $list_of_teams;
+		$this->rebuild_children_index();
+	}
 
+	public function rebuild_children_index() {
 		// Build the library of parent_id => teams.
-		foreach ( $list_of_teams as $team ) {
+		foreach ( $this->list_of_teams as $team ) {
 			// Skip the head.
 			if ( is_null( $team['parent_id'] ) ) {
 				continue;
@@ -36,6 +39,10 @@ class Rusty_Inc_Org_Chart_Tree {
 				$this->children[ $team['parent_id'] ] = array( $team );
 			}
 		}
+	}
+
+	public function get_list_of_teams() {
+		return $this->list_of_teams;
 	}
 
 	/**
@@ -61,6 +68,52 @@ class Rusty_Inc_Org_Chart_Tree {
 			$this->get_children( $root )
 		);
 		return $root;
+	}
+
+	/**
+	 * Updates list_of_teams from nested tree in JSON format
+	 *
+	 * @param string $json_string JSON tree representation.
+	 * @return void
+	 */
+	public function update_from_json( $json_string = 'null' ) {
+		// Decode string to assoc array.
+		$nested_tree = json_decode( $json_string, true );
+		$list_of_teams = $this->get_plain_list( $nested_tree );
+		$this->list_of_teams = $list_of_teams;
+		$this->rebuild_children_index();
+	}
+
+	/**
+	 * Recursively convert nested tree to plain teams list
+	 *
+	 * @param array $root Tree root.
+	 * @return array
+	 */
+	public function get_plain_list( $root = null ) {
+		$list_of_teams = array();
+
+		if ( ! is_null( $root ) ) {
+			// Pick the root element.
+			$team = $root;
+
+			// Process children.
+			if ( isset( $team['children'] ) && is_array( $team['children'] ) ) {
+
+				foreach ( $team['children'] as $child_team ) {
+
+					// Recursively get plain list for child.
+					$child_teams = $this->get_plain_list( $child_team );
+					$list_of_teams = array_merge( $list_of_teams, $child_teams );
+				}
+
+				unset( $team['children'] );
+			}
+
+			$list_of_teams[] = $team;
+		}
+
+		return $list_of_teams;
 	}
 
 	public function get_nested_tree_js( $root = null ) {
